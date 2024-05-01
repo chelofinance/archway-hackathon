@@ -4,11 +4,20 @@ import {GasPrice} from "@cosmjs/stargate";
 import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate";
 import dotenv from "dotenv";
 import {NetworkConfig} from "types";
+import {OfflineAminoSigner, Secp256k1HdWallet} from "@cosmjs/amino";
 dotenv.config();
 
 export const loadMnemonic = (path: string) => {
   const mnemonic = readFileSync(path).toString();
   return mnemonic.replace("\n", "");
+};
+
+export const loadAminoSignerFromMnemonic = (
+  network: NetworkConfig
+): Promise<OfflineAminoSigner> => {
+  return Secp256k1HdWallet.fromMnemonic(process.env.MNEMONIC as string, {
+    prefix: network.prefix,
+  });
 };
 
 export const loadSignerFromMnemonic = (network: NetworkConfig): Promise<OfflineDirectSigner> => {

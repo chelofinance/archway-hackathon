@@ -1,4 +1,6 @@
+import {OfflineAminoSigner} from "@cosmjs/amino";
 import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate";
+import {OfflineDirectSigner} from "@cosmjs/proto-signing";
 
 export type NetworkConfig = {
   chainId: string;
@@ -25,7 +27,10 @@ export type Arguments = {
 
 export type Action = (args: {
   args: Arguments;
+  signer: OfflineDirectSigner;
+  aminoSigner: OfflineAminoSigner;
   config: Config;
+  network: NetworkConfig;
   client: SigningCosmWasmClient;
   accounts: Account[];
 }) => unknown;

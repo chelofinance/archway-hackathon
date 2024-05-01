@@ -32,7 +32,7 @@ const execute: Action = async (action) => {
         ],
         open_proposal_submission: false,
         revoting: false,
-        threshold: {absolute_count: {weight: 1}},
+        threshold: {absolute_count: {weight: 200}},
       },
       salt: `salt-${accounts[0].address}`,
     },

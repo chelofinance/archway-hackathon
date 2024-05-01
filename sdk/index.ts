@@ -1,5 +1,9 @@
 import dotenv from "dotenv";
-import {getSigningClient, loadSignerFromMnemonic} from "./utils/wallet";
+import {
+  getSigningClient,
+  loadAminoSignerFromMnemonic,
+  loadSignerFromMnemonic,
+} from "./utils/wallet";
 import yargs from "yargs";
 import config from "./config";
 import {actions} from "./examples";
@@ -28,10 +32,14 @@ const main = async () => {
   if (!action) throw new Error(`action ${args.action} not implemented`);
 
   const signer = await loadSignerFromMnemonic(network);
+  const aminoSigner = await loadAminoSignerFromMnemonic(network);
   const client = await getSigningClient(network, signer);
   const accounts = await signer.getAccounts();
   const response = await action({
     client,
+    signer,
+    aminoSigner,
+    network,
     accounts: accounts.map(({address}) => ({
       address,
     })),
