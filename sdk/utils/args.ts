@@ -10,8 +10,10 @@ export function isValidJSON(str: string) {
   }
 }
 
-export const required = (args: Arguments, field: keyof Arguments) => {
+export const required = (args: Arguments, field: keyof Arguments, expected?: unknown[]) => {
   if (!args[field]) throw new Error(`Field ${field} is required by this action`);
+  if (expected && !expected.includes(args[field]))
+    throw new Error(`Field ${field} must have any of the values ${expected.join(", ")}`);
 };
 
 export const getMessage = (msg: string) => {

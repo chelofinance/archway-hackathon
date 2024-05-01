@@ -1,4 +1,4 @@
-import { SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+import {SigningCosmWasmClient} from "@cosmjs/cosmwasm-stargate";
 
 export type NetworkConfig = {
   chainId: string;
@@ -20,10 +20,7 @@ export type Arguments = {
   chain: string;
   action: string;
 
-  contract?: string;
-  codeId?: number;
-  message?: object;
-  label?: string;
+  [k: string]: unknown;
 };
 
 export type Action = (args: {
